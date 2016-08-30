@@ -11,6 +11,9 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import com.normativeanimal.social.rest.resources.CurationEntryPoint;
 
+/**
+ * TODO - serialisation, logging
+ */
 public class CuratorJaxRSApplication extends ResourceConfig {
 
 	// just run it in a basic server for now - will think about containers later
