@@ -6,9 +6,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+/**
+ * The basic entry point to the curation ReST application. I might switch this
+ * to a list later on.
+ * 
+ * @author chris
+ *
+ */
 @Path("/")
 @Singleton
-public class CurationEntryPoint{
+public class CurationEntryPoint {
 
 	@GET
 	@Path("list/")
