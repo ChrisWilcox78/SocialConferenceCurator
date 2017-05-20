@@ -4,7 +4,7 @@ import static org.apache.commons.lang3.ObjectUtils.allNotNull;
 
 import java.util.Date;
 
-public class Tweet {
+public class Tweet implements SocialMediaPost {
 	private Date createdDate;
 	private String screenName;
 	private String text;

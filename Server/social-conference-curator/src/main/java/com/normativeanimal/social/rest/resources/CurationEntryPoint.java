@@ -9,8 +9,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.normativeanimal.social.business.twitter.TweetRetrievalCoordinator;
-
-import twitter4j.TwitterException;
+import com.normativeanimal.social.domain.RetrievalCoordinator;
+import com.normativeanimal.social.domain.Tweet;
 
 /**
  * The basic entry point to the curation ReST application. I might switch this
@@ -23,12 +23,12 @@ import twitter4j.TwitterException;
 @Singleton
 public class CurationEntryPoint {
 
-	TweetRetrievalCoordinator tweetRetrievalCoordinator = new TweetRetrievalCoordinator();
+	RetrievalCoordinator<Tweet> tweetRetrievalCoordinator = new TweetRetrievalCoordinator();
 
 	@GET
 	@Path("list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getRawList(@QueryParam("hashtag") String hashtag) throws TwitterException {
+	public Response getRawList(@QueryParam("hashtag") String hashtag) {
 		return Response.ok(this.tweetRetrievalCoordinator.retrieve(hashtag)).build();
 	}
 }
