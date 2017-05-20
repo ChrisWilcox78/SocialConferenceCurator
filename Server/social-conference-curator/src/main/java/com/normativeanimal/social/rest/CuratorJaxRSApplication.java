@@ -12,17 +12,10 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import com.normativeanimal.social.rest.resources.CurationEntryPoint;
 
-import twitter4j.auth.AccessToken;
-
 /**
  * TODO - logging
  */
 public class CuratorJaxRSApplication extends ResourceConfig {
-
-	public static String CONSUMER_KEY = System.getenv().get("twitter.consumer.key");
-	public static String CONSUMER_SECRET = System.getenv().get("twitter.consumer.secret");
-	public static AccessToken ACCESS_TOKEN = new AccessToken(System.getenv().get("twitter.token"),
-			System.getenv().get("twitter.token.secret"));
 
 	// just run it in a basic server for now - will think about containers later
 	public static void main(String[] args) throws IOException {
