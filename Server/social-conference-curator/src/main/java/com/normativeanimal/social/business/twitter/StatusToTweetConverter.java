@@ -7,11 +7,12 @@ import com.normativeanimal.social.domain.Tweet;
 
 import twitter4j.Status;
 
-public class TweetConverter implements Function<Status, PostContainer<Tweet>> {
+public class StatusToTweetConverter implements Function<Status, PostContainer<Tweet>> {
 
 	@Override
 	public PostContainer<Tweet> apply(Status status) {
 		final Tweet transformedTweet = new Tweet.Builder()
+		        .withId(status.getId())
 		        .withText(status.getText())
 		        .withCountry(status.getPlace() != null ? status.getPlace().getCountry() : null)
 		        .withCreatedDate(status.getCreatedAt())
