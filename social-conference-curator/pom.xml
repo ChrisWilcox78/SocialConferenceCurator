@@ -29,6 +29,7 @@
 			<version>3.5</version>
 		</dependency>
 
+        <!-- ReST dependencies -->
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-server</artifactId>
@@ -55,11 +56,30 @@
 			<version>${jersey.version}</version>
 		</dependency>
 
+        <!-- websocket dependencies  -->
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+            <groupId>org.glassfish.tyrus</groupId>
+            <artifactId>tyrus-server</artifactId>
+            <version>1.13.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.tyrus</groupId>
+            <artifactId>tyrus-container-grizzly-server</artifactId>
+            <version>1.13.1</version>
+        </dependency>
+		
+
 		<dependency>
 			<groupId>org.twitter4j</groupId>
 			<artifactId>twitter4j-core</artifactId>
 			<version>4.0.4</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -71,4 +91,14 @@
 			<version>1.3.176</version>
 		</dependency>
 	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+			     <!-- need to specify this version of transitive dependency for websockets as another is pulled by ReST dependencies -->
+				<groupId>org.glassfish.grizzly</groupId>
+				<artifactId>grizzly-framework</artifactId>
+				<version>2.4.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

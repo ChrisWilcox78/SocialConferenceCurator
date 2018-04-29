@@ -20,7 +20,7 @@ public class TweetRetrievalCoordinator implements RetrievalCoordinator<Tweet> {
 	private static final AccessToken ACCESS_TOKEN = new AccessToken(System.getenv().get("twitter.token"),
 	        System.getenv().get("twitter.token.secret"));
 
-	private static final TweetRetriever RETRIEVER = new TweetRetriever();
+	private static final TweetRetriever RETRIEVER;
 	private static final StatusToTweetConverter CONVERTER = new StatusToTweetConverter();
 	private static final Twitter TWITTER;
 
@@ -30,6 +30,7 @@ public class TweetRetrievalCoordinator implements RetrievalCoordinator<Tweet> {
 		TWITTER.setOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
 		final AccessToken accessToken = ACCESS_TOKEN;
 		TWITTER.setOAuthAccessToken(accessToken);
+		RETRIEVER = new TweetRetriever(TWITTER);
 	}
 
 	private final TweetPersistenceManager persistenceManager;
@@ -39,8 +40,8 @@ public class TweetRetrievalCoordinator implements RetrievalCoordinator<Tweet> {
 	}
 
 	@Override
-	public List<PostContainer<Tweet>> retrieve(String hashtag) {
-		final List<PostContainer<Tweet>> tweets = RETRIEVER.apply(TWITTER, hashtag)
+	public List<PostContainer<Tweet>> retrieve(final String hashtag) {
+		final List<PostContainer<Tweet>> tweets = RETRIEVER.apply(hashtag)
 		        .map(CONVERTER)
 		        .collect(Collectors.toList());
 		this.persistenceManager.persist(tweets);
@@ -48,7 +49,7 @@ public class TweetRetrievalCoordinator implements RetrievalCoordinator<Tweet> {
 	}
 
 	@Override
-	public Optional<PostContainer<Tweet>> getById(Long id) {
+	public Optional<PostContainer<Tweet>> getById(final Long id) {
 		return this.persistenceManager.getById(id);
 	}
 }

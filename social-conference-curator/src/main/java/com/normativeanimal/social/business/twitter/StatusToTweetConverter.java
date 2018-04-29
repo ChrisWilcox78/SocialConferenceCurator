@@ -10,13 +10,14 @@ import twitter4j.Status;
 public class StatusToTweetConverter implements Function<Status, PostContainer<Tweet>> {
 
 	@Override
-	public PostContainer<Tweet> apply(Status status) {
+	public PostContainer<Tweet> apply(final Status status) {
 		final Tweet transformedTweet = new Tweet.Builder()
 		        .withId(status.getId())
 		        .withText(status.getText())
 		        .withCountry(status.getPlace() != null ? status.getPlace().getCountry() : null)
 		        .withCreatedDate(status.getCreatedAt())
 		        .withScreenName(status.getUser().getScreenName())
+				.withUserImage(status.getUser().getProfileImageURLHttps())
 		        .build();
 
 		return new PostContainer<Tweet>(transformedTweet);

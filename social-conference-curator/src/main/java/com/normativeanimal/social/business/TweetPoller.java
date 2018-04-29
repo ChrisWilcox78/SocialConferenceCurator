@@ -1,9 +1,8 @@
-package com.normativeanimal.social.rest.resources;
+package com.normativeanimal.social.business;
 
 import java.util.List;
 import java.util.Observable;
 
-import com.normativeanimal.social.business.RetrievalCoordinator;
 import com.normativeanimal.social.business.twitter.TweetRetrievalCoordinator;
 import com.normativeanimal.social.domain.PostContainer;
 import com.normativeanimal.social.domain.Tweet;
@@ -13,6 +12,7 @@ import com.normativeanimal.social.domain.Tweet;
  */
 public class TweetPoller extends Observable implements Runnable {
 	private static final int POLLING_INTERVAL = 30000;
+
 	private final RetrievalCoordinator<Tweet> tweetRetrievalCoordinator;
 
 	public TweetPoller() {
@@ -22,13 +22,23 @@ public class TweetPoller extends Observable implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			try {
-				Thread.sleep(POLLING_INTERVAL);
-			} catch (final InterruptedException e) {
+			if (countObservers() > 0) {
+				retrieveAndNotify();
 			}
-			final List<PostContainer<Tweet>> retrievedTweets = this.tweetRetrievalCoordinator.retrieve("test");
-			setChanged();
-			notifyObservers(retrievedTweets);
+			waitForPollingInterval();
+		}
+	}
+
+	private void retrieveAndNotify() {
+		final List<PostContainer<Tweet>> retrievedTweets = this.tweetRetrievalCoordinator.retrieve("test");
+		setChanged();
+		notifyObservers(retrievedTweets);
+	}
+
+	private void waitForPollingInterval() {
+		try {
+			Thread.sleep(POLLING_INTERVAL);
+		} catch (final InterruptedException e) {
 		}
 	}
 }

@@ -22,6 +22,7 @@ public class TweetBean {
 	private ProcessingStatus processingStatus;
 	private Date createdDate;
 	private String screenName;
+	private String userImage;
 	private String text;
 	private String country;
 
@@ -45,6 +46,10 @@ public class TweetBean {
 		return this.screenName;
 	}
 
+	public String getUserImage() {
+		return this.userImage;
+	}
+
 	public String getText() {
 		return this.text;
 	}
@@ -60,33 +65,38 @@ public class TweetBean {
 			this.underConstruction = new TweetBean();
 		}
 
-		public Builder withId(Long id) {
+		public Builder withId(final Long id) {
 			this.underConstruction.id = id;
 			return this;
 		}
 
-		public Builder withProcessingStatus(ProcessingStatus processingStatus) {
+		public Builder withProcessingStatus(final ProcessingStatus processingStatus) {
 			this.underConstruction.processingStatus = processingStatus;
 			return this;
 		}
 
-		public Builder withCreatedDate(Date createdDate) {
+		public Builder withCreatedDate(final Date createdDate) {
 			this.underConstruction.createdDate = createdDate;
 			return this;
 		}
 
-		public Builder withScreenName(String screenName) {
+		public Builder withScreenName(final String screenName) {
 			this.underConstruction.screenName = screenName;
 			return this;
 		}
 
-		public Builder withText(String text) {
+		public Builder withText(final String text) {
 			this.underConstruction.text = text;
 			return this;
 		}
 
-		public Builder withCountry(String country) {
+		public Builder withCountry(final String country) {
 			this.underConstruction.country = country;
+			return this;
+		}
+
+		public Builder withUserImage(final String userImage) {
+			this.underConstruction.userImage = userImage;
 			return this;
 		}
 
@@ -99,27 +109,31 @@ public class TweetBean {
 		}
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
-	public void setProcessingStatus(ProcessingStatus processingStatus) {
+	public void setProcessingStatus(final ProcessingStatus processingStatus) {
 		this.processingStatus = processingStatus;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(final Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public void setScreenName(String screenName) {
+	public void setScreenName(final String screenName) {
 		this.screenName = screenName;
 	}
 
-	public void setText(String text) {
+	public void setUserImage(final String userImage) {
+		this.userImage = userImage;
+	}
+
+	public void setText(final String text) {
 		this.text = text;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(final String country) {
 		this.country = country;
 	}
 }

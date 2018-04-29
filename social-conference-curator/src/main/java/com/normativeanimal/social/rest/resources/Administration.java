@@ -9,22 +9,24 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.sse.Sse;
 import javax.ws.rs.sse.SseEventSink;
 
+import com.normativeanimal.social.business.TweetPoller;
+
 @Path("/administration/")
 @Singleton
 public class Administration {
 
-	private static final TweetPoller TWEET_POLLER = new TweetPoller();
+	private static TweetPoller POLLER = new TweetPoller();
 
 	static {
-		new Thread(TWEET_POLLER).start();
+		new Thread(POLLER).start();
 	}
 
 	@GET
 	@Path("register")
 	@Produces(MediaType.SERVER_SENT_EVENTS)
 	public void getServerSentEvents(@Context final SseEventSink eventSink, @Context final Sse sse) {
-		final TweetObserver tweetObserver = new TweetObserver(eventSink, sse);
-		TWEET_POLLER.addObserver(tweetObserver);
+		final EventSourceObserver tweetObserver = new EventSourceObserver(eventSink, sse);
+		POLLER.addObserver(tweetObserver);
 	}
 }
 

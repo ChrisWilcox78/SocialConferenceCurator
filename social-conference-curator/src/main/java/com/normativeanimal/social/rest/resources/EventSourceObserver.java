@@ -10,14 +10,14 @@ import javax.ws.rs.sse.Sse;
 import javax.ws.rs.sse.SseEventSink;
 
 /**
- * Listens for tweet updates and pushes them out over a websocket.
+ * Listens for updates and pushes them out as server sent events.
  */
-public class TweetObserver implements Observer {
+class EventSourceObserver implements Observer {
 
 	private final SseEventSink eventSink;
 	private final Sse sse;
 
-	public TweetObserver(final SseEventSink eventSink, final Sse sse) {
+	public EventSourceObserver(final SseEventSink eventSink, final Sse sse) {
 		this.eventSink = eventSink;
 		this.sse = sse;
 	}
@@ -28,10 +28,9 @@ public class TweetObserver implements Observer {
 			o.deleteObserver(this);
 		} else {
 			final OutboundSseEvent event = this.sse.newEventBuilder()
-				.name("latest-tweets")
-				.mediaType(MediaType.APPLICATION_JSON_TYPE)
-				.data(List.class, arg)
-				.build();
+					.mediaType(MediaType.APPLICATION_JSON_TYPE)
+					.data(List.class, arg)
+					.build();
 			this.eventSink.send(event);
 		}
 	}
